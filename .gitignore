@@ -103,6 +103,6 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-
 # My files
 settings.json
+configs.py
