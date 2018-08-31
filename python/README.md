@@ -1,3 +1,13 @@
+Table of Contents
+
+- [Getting Started](#getting-started)
+    - [Tests](#tests)
+    - [DONE](#done)
+    - [TODO](#todo)
+- [For Local Tests](#for-local-tests)
+    - [DONE](#done)
+- [Important](#important)
+
 # Getting Started
 
 ## Tests
@@ -9,14 +19,22 @@
 ## DONE
 
 - getRequestTest
+- postRequestTest
 
 ## TODO
 
-- postRequestTest
 - putRequestTest
 - deleteRequestTest
 
 > ADD MORE
+
+# For Local Tests
+
+`MONGODB_PURGE=false`
+
+## DONE
+
+- liveQueryTest
 
 # Important
 
