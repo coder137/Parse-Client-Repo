@@ -1,7 +1,9 @@
 Table of Contents
 
 - [Getting Started](#getting-started)
-    - [Tests](#tests)
+- [Library](#library)
+    - [DONE](#done)
+- [Tests](#tests)
     - [DONE](#done)
     - [TODO](#todo)
 - [For Local Tests](#for-local-tests)
@@ -10,7 +12,25 @@ Table of Contents
 
 # Getting Started
 
-## Tests
+**Setup your Local Parse-Server environment**
+
+- Run LocalTests
+
+**Setup your Back4App environment**
+
+- Run Tests
+
+# Library
+
+Each Library has its own `README.md` file
+
+Client Libraries can be modified for both LocalTests as well as ServerTests
+
+## DONE
+
+- LiveQueryLib
+
+# Tests
 
 1. Create a `configs.py` -> keys given in `config.py`
 2. Run the python script by modifying your equivalent `classes` string
@@ -31,6 +51,8 @@ Table of Contents
 # For Local Tests
 
 `MONGODB_PURGE=false`
+
+Run the `windows_start_mongodbrunner.bat` with admin privileges
 
 ## DONE
 
