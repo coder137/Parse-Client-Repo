@@ -57,6 +57,10 @@ Run the `windows_start_mongodbrunner.bat` with admin privileges
 ## DONE
 
 - liveQueryTest
+- postRequestTest
+- getRequestTest
+- putRequestTest
+- deleteRequestTest
 
 # Important
 
