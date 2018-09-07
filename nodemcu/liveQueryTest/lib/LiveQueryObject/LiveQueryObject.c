@@ -6,6 +6,10 @@
  * @return uint8_t
  * created = 0 (fail)
  * created = 1 (success)
+ * {
+ *      "op": "connect",
+ *      "applicationId": {applicationId}
+ * }
  */
 // TODO, Make the fields dynamic
 uint8_t createConnectToken(const char * appIdPass, cJSON *connectObject)
@@ -17,8 +21,28 @@ uint8_t createConnectToken(const char * appIdPass, cJSON *connectObject)
     return created;
 }
 
-//TODO, Test this function
+
+/**
+ * @param const char *classname
+ * @param cJSON *identifier_object
+ * @param cJSON *subscribeObject
+ * @return uint8_t
+ * created = 0 (fail)
+ * created = 1 (success)
+ * {
+ *      "op": "subscribe",
+ *      "requestId": 1,
+ *      "query": {
+ *          "className": "Player",
+ *          "where": {"name", "test"},
+ *          "fields": ["name"] //optional
+ *      },
+ *      "sessionToken": ""
+ * }
+ */
+// TODO, Test this function
 // TODO, Make the fields dynamic
+// TODO, Make requestID dynamic
 uint8_t createSubscribeToken(const char * className, cJSON *identifier_object, cJSON *subscribeObject)
 {
     uint8_t created;
