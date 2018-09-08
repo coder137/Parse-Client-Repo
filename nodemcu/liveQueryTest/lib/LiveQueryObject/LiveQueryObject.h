@@ -4,7 +4,6 @@
 #include <inttypes.h>
 #include <cJSON.h>
 
-
 #ifdef __cplusplus
 extern "C"
 {

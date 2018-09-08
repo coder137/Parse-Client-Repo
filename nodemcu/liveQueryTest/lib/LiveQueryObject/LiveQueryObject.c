@@ -40,7 +40,6 @@ uint8_t createConnectToken(const char * appIdPass, cJSON *connectObject)
  *      "sessionToken": ""
  * }
  */
-// TODO, Test this function
 // TODO, Make the fields dynamic
 // TODO, Make requestID dynamic
 uint8_t createSubscribeToken(const char * className, cJSON *identifier_object, cJSON *subscribeObject)
