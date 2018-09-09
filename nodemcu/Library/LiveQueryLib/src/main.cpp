@@ -113,22 +113,21 @@ void webSocketEvent(WStype_t type, uint8_t * payload, size_t length)
         {
             Serial.printf("Text Received: %s %u\n", payload, length);
 
-            // TODO, Make OP names dynamic
+            // DONE, Make OP names dynamic
             // DONE, Parse the payload here first
             cJSON * parseObject = cJSON_Parse((char *) payload);
-            cJSON * opObject = cJSON_GetObjectItemCaseSensitive(parseObject, "op");
+            cJSON * opObject = cJSON_GetObjectItemCaseSensitive(parseObject, LIVEQUERY_OP);
 
             // ? Debugging
             Serial.printf("OP param: %s\n", opObject->valuestring);
 
-            if (strcmp(opObject->valuestring, "connected") == 0)
+            if (strcmp(opObject->valuestring, LIVEQUERY_IS_CONNECTED) == 0)
             {
                 Serial.println("Connected");
-                //DONE, Subscribe to an object here
                 subscribeToServer(webSocket, "Test", "name", "test");
             }
 
-            if (strcmp(opObject->valuestring, "subscribed") == 0)
+            if (strcmp(opObject->valuestring, LIVEQUERY_IS_SUBSCRIBED) == 0)
             {
                 Serial.println("Subscribed");
             }

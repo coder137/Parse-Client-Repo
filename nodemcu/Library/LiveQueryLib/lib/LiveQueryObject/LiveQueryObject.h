@@ -3,6 +3,7 @@
 
 #include <inttypes.h>
 #include <cJSON.h>
+#include <LiveQueryConstants.h>
 
 #ifdef __cplusplus
 extern "C"

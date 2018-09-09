@@ -15,8 +15,8 @@
 uint8_t createConnectToken(const char * appIdPass, cJSON *connectObject)
 {
     uint8_t created;
-    created = deleteJSONObject_IfNull( cJSON_AddStringToObject(connectObject, "op", "connect") );
-    created &= deleteJSONObject_IfNull( cJSON_AddStringToObject(connectObject, "applicationId", appIdPass) );
+    created = deleteJSONObject_IfNull( cJSON_AddStringToObject(connectObject, LIVEQUERY_OP, LIVEQUERY_TO_CONNECT) );
+    created &= deleteJSONObject_IfNull( cJSON_AddStringToObject(connectObject, LIVEQUERY_APPLICATION_ID, appIdPass) );
 
     return created;
 }
@@ -45,17 +45,17 @@ uint8_t createConnectToken(const char * appIdPass, cJSON *connectObject)
 uint8_t createSubscribeToken(const char * className, const char *key, const char *value, cJSON *subscribeObject)
 {
     uint8_t created;
-    created = deleteJSONObject_IfNull( cJSON_AddStringToObject(subscribeObject, "op", "subscribe") );
-    created &= deleteJSONObject_IfNull( cJSON_AddNumberToObject(subscribeObject, "requestId", 1) );
+    created = deleteJSONObject_IfNull( cJSON_AddStringToObject(subscribeObject, LIVEQUERY_OP, LIVEQUERY_TO_SUBSCRIBE) );
+    created &= deleteJSONObject_IfNull( cJSON_AddNumberToObject(subscribeObject, LIVEQUERY_REQUEST_ID, 1) );
 
     cJSON * queryObject = cJSON_CreateObject();
-    created &= deleteJSONObject_IfNull( cJSON_AddStringToObject(queryObject, "className", className) );
+    created &= deleteJSONObject_IfNull( cJSON_AddStringToObject(queryObject, LIVEQUERY_CLASSNAME, className) );
 
     cJSON * identifier_object = cJSON_CreateObject();
     created &= deleteJSONObject_IfNull( cJSON_AddStringToObject(identifier_object, key, value) );    
-    cJSON_AddItemToObject(queryObject, "where", identifier_object); 
+    cJSON_AddItemToObject(queryObject, LIVEQUERY_WHERE, identifier_object); 
 
-    cJSON_AddItemToObject(subscribeObject, "query", queryObject);
+    cJSON_AddItemToObject(subscribeObject, LIVEQUERY_QUERY, queryObject);
 
     return created;
 }
