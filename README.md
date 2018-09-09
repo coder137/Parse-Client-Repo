@@ -17,3 +17,4 @@ README for ESP8266-Arduino (NodeMCU) can be found inside the `nodemcu` directory
 
 - [ArduinoWebsockets](https://github.com/Links2004/arduinoWebSockets)
 - [cJSON](https://github.com/DaveGamble/cJSON)
+- [ESP8266HTTPClient](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266HTTPClient)

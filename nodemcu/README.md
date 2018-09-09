@@ -5,7 +5,6 @@ Table of Contents
 - [LocalTests](#localtests)
     - [DONE](#done)
 - [Tests](#tests)
-- [TODO](#todo)
 
 # Getting Started
 
@@ -13,7 +12,7 @@ Used the `NodeMCU V1 (ESP12E)` with Arduino Core and Platformio on VSCode
 
 # Library
 
-> TODO
+- LiveQueryLib
 
 # LocalTests
 
@@ -21,16 +20,14 @@ These are the various tests used to get NodeMCU working with the Parse-Server lo
 
 ## DONE
 
-- Websockets
+- LiveQueryTest
+- GetRequestTest
+- PostRequestTest
+- PutRequestTest
+- DeleteRequestTest
 
 # Tests
 
 These are the various tests used to get NodeMCU working the the Back4App server
 
-# TODO
-
-- Websockets
-- Get
-- Post
-- Put
-- Delete
+> TODO
