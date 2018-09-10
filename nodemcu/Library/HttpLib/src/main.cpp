@@ -21,6 +21,7 @@ Ticker memoryHeapTicker;
 void getMemoryHeap();
 
 void testGetRequest();
+void testGetRequestWithQuery();
 void testPostRequest();
 
 void setup() 
@@ -44,7 +45,7 @@ void setup()
     Serial.printf("LocalIP: %s\n", WiFi.localIP().toString().c_str());
 
     // ? Ticker
-    memoryHeapTicker.attach_ms(200, getMemoryHeap);
+    memoryHeapTicker.attach(3, getMemoryHeap);
 
     // ? HTTP Client    
 }
@@ -52,8 +53,9 @@ void setup()
 void loop() 
 {
     // put your main code here, to run repeatedly:
-    testGetRequest();
+    // testGetRequest();
     // testPostRequest();
+    testGetRequestWithQuery();
     delay(3000);
 }
 
@@ -61,6 +63,16 @@ void testGetRequest()
 {
     int status;
     char * payload = parseServer_getRequest("http://192.168.29.186:1337/parse/classes/Test", "myAppId", &status);
+    Serial.printf("Payload: %s\n", payload);
+    Serial.printf("Status: %d\n", status);
+    free(payload); // ! You have to free the payload
+    Serial.println("\n\n");
+}
+
+void testGetRequestWithQuery()
+{
+    int status;
+    char * payload = parseServer_getRequest("http://192.168.29.186:1337/parse/classes/nodemcu?where={\"Score\":500}", "myAppId", &status);
     Serial.printf("Payload: %s\n", payload);
     Serial.printf("Status: %d\n", status);
     free(payload); // ! You have to free the payload
