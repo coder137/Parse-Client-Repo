@@ -52,8 +52,8 @@ void setup()
 void loop() 
 {
     // put your main code here, to run repeatedly:
-    // testGetRequest();
-    testPostRequest();
+    testGetRequest();
+    // testPostRequest();
     delay(3000);
 }
 

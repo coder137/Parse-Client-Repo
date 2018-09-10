@@ -14,22 +14,11 @@
 char * parseServer_getRequest(const char *url, const char *applicationId, int * status)
 {
     HTTPClient http;
-    http.begin(url);
-    http.addHeader(HTTPCONSTANT_PARSE_APPLICATION_ID, applicationId);
-    http.addHeader(HTTPCONSTANT_CONTENT_TYPE, HTTPCONSTANT_APPLICATION_JSON);
+    parseServer_addHeaderToClient(http, url, applicationId);
 
     *status = http.GET();
-    char * returnData = NULL;
-
-    if (status > 0)
-    {
-        String payload = http.getString();
-        returnData = (char *) malloc(sizeof(char)*(payload.length() + 1));
-        strcpy(returnData, payload.c_str());;
-    }
     
-    http.end();
-    return returnData;
+    return parseServer_returnData(http, status);
 }
 
 /**
