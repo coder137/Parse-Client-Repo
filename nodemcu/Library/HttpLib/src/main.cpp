@@ -21,6 +21,7 @@ Ticker memoryHeapTicker;
 void getMemoryHeap();
 
 void testGetRequest();
+void testPostRequest();
 
 void setup() 
 {
@@ -51,14 +52,26 @@ void setup()
 void loop() 
 {
     // put your main code here, to run repeatedly:
-    testGetRequest();
-    delay(1000);
+    // testGetRequest();
+    testPostRequest();
+    delay(3000);
 }
 
 void testGetRequest()
 {
     int status;
     char * payload = parseServer_getRequest("http://192.168.29.186:1337/parse/classes/Test", "myAppId", &status);
+    Serial.printf("Payload: %s\n", payload);
+    Serial.printf("Status: %d\n", status);
+    free(payload); // ! You have to free the payload
+    Serial.println("\n\n");
+}
+
+void testPostRequest()
+{
+    int status;
+    const char data[] = "{\"Name\": \"Test\", \"Score\": 12}";
+    char * payload = parseServer_postRequest("http://192.168.29.186:1337/parse/classes/nodemcu", "myAppId", &status, data);
     Serial.printf("Payload: %s\n", payload);
     Serial.printf("Status: %d\n", status);
     free(payload); // ! You have to free the payload

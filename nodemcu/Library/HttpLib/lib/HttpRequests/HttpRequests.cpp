@@ -1,6 +1,5 @@
 #include "HttpRequests.h"
 
-#include <ESP8266HTTPClient.h>
 #include <HttpConstants.h>
 
 /**
@@ -21,7 +20,7 @@ char * parseServer_getRequest(const char *url, const char *applicationId, int * 
 
     *status = http.GET();
     char * returnData = NULL;
-    
+
     if (status > 0)
     {
         String payload = http.getString();
@@ -29,6 +28,42 @@ char * parseServer_getRequest(const char *url, const char *applicationId, int * 
         strcpy(returnData, payload.c_str());;
     }
     
+    http.end();
+    return returnData;
+}
+
+/**
+ * ! Call FREE when data is returned
+ */
+char * parseServer_postRequest(const char *url, const char *applicationId, int * status, const char * data)
+{
+    HTTPClient http;
+    parseServer_addHeaderToClient(http, url, applicationId);
+
+    *status = http.POST(data);
+
+    return parseServer_returnData(http, status);
+}
+
+
+void parseServer_addHeaderToClient(HTTPClient &http, const char *url, const char *applicationId)
+{
+    http.begin(url);
+    http.addHeader(HTTPCONSTANT_PARSE_APPLICATION_ID, applicationId);
+    http.addHeader(HTTPCONSTANT_CONTENT_TYPE, HTTPCONSTANT_APPLICATION_JSON);
+}
+
+char * parseServer_returnData(HTTPClient &http, int *status)
+{
+    char * returnData = NULL;
+
+    if(status > 0)
+    {
+        String payload = http.getString();
+        returnData = (char *) malloc(sizeof(char)*(payload.length() + 1));
+        strcpy(returnData, payload.c_str());
+    }
+
     http.end();
     return returnData;
 }
