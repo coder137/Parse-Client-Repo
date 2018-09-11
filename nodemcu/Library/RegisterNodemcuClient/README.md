@@ -17,4 +17,4 @@ To register a nodemcuClient to a parseServer and subscribe to itself
 
 ## Modules Used
 
-> TODO
+Check `lib/readme.txt` for entire dependencies
