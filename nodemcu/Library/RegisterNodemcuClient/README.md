@@ -18,3 +18,20 @@ To register a nodemcuClient to a parseServer and subscribe to itself
 ## Modules Used
 
 Check `lib/readme.txt` for entire dependencies
+
+## Database Schema
+
+``` json
+{
+    "mac": "<mac_addr>",
+    "device_name": "<user_name>",
+    "pin1": {
+        "pin_name": "<pin_name>",
+        "type": "control/switch",
+        "value": 128-0/1-0
+    },
+    "pin2": {...},
+    "pin3": {...},
+    "pin4": {...}
+}
+```
