@@ -23,6 +23,7 @@ void getMemoryHeap();
 void testGetRequest();
 void testGetRequestWithQuery();
 void testPostRequest();
+void testPutRequest();
 
 void setup() 
 {
@@ -55,7 +56,8 @@ void loop()
     // put your main code here, to run repeatedly:
     // testGetRequest();
     // testPostRequest();
-    testGetRequestWithQuery();
+    //testGetRequestWithQuery();
+    testPutRequest();
     delay(3000);
 }
 
@@ -83,7 +85,19 @@ void testPostRequest()
 {
     int status;
     const char data[] = "{\"Name\": \"Test\", \"Score\": 12}";
-    char * payload = parseServer_postRequest("http://192.168.29.186:1337/parse/classes/nodemcu", "myAppId", &status, data);
+    char * payload = parseServer_postRequest("http://192.168.29.186:1337/parse/classes/nodemcu", "myAppId", data, &status);
+    Serial.printf("Payload: %s\n", payload);
+    Serial.printf("Status: %d\n", status);
+    free(payload); // ! You have to free the payload
+    Serial.println("\n\n");
+}
+
+void testPutRequest()
+{
+    int status;
+    const char data[] = "{\"Name\":\"PutTest\"}";
+    char * payload = parseServer_putRequest("http://192.168.29.186:1337/parse/classes/nodemcu/2jWX2M2Tyu",
+                                            "myAppId", data, &status);
     Serial.printf("Payload: %s\n", payload);
     Serial.printf("Status: %d\n", status);
     free(payload); // ! You have to free the payload

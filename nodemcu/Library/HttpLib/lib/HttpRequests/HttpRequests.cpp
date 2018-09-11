@@ -24,7 +24,7 @@ char * parseServer_getRequest(const char *url, const char *applicationId, int * 
 /**
  * ! Call FREE when data is returned
  */
-char * parseServer_postRequest(const char *url, const char *applicationId, int * status, const char * data)
+char * parseServer_postRequest(const char *url, const char *applicationId, const char * data, int * status)
 {
     HTTPClient http;
     parseServer_addHeaderToClient(http, url, applicationId);
@@ -34,6 +34,18 @@ char * parseServer_postRequest(const char *url, const char *applicationId, int *
     return parseServer_returnData(http, status);
 }
 
+/**
+ * ! Call FREE when data is returned
+ */
+char * parseServer_putRequest(const char *url, const char *applicationId, const char * data, int * status)
+{
+    HTTPClient http;
+    parseServer_addHeaderToClient(http, url, applicationId);
+
+    *status = http.PUT(data);
+
+    return parseServer_returnData(http, status);
+}
 
 void parseServer_addHeaderToClient(HTTPClient &http, const char *url, const char *applicationId)
 {
