@@ -24,6 +24,7 @@ void testGetRequest();
 void testGetRequestWithQuery();
 void testPostRequest();
 void testPutRequest();
+void testDeleteRequest();
 
 void setup() 
 {
@@ -57,8 +58,9 @@ void loop()
     // testGetRequest();
     // testPostRequest();
     //testGetRequestWithQuery();
-    testPutRequest();
+    // testPutRequest();
     delay(3000);
+    // testDeleteRequest();
 }
 
 void testGetRequest()
@@ -98,6 +100,17 @@ void testPutRequest()
     const char data[] = "{\"Name\":\"PutTest\"}";
     char * payload = parseServer_putRequest("http://192.168.29.186:1337/parse/classes/nodemcu/2jWX2M2Tyu",
                                             "myAppId", data, &status);
+    Serial.printf("Payload: %s\n", payload);
+    Serial.printf("Status: %d\n", status);
+    free(payload); // ! You have to free the payload
+    Serial.println("\n\n");
+}
+
+void testDeleteRequest()
+{
+    int status;
+    char * payload = parseServer_deleteRequest("http://192.168.29.186:1337/parse/classes/nodemcu/Vn5IpGWWJW",
+                                                "myAppId", &status);
     Serial.printf("Payload: %s\n", payload);
     Serial.printf("Status: %d\n", status);
     free(payload); // ! You have to free the payload

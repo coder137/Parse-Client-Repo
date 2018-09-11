@@ -47,6 +47,16 @@ char * parseServer_putRequest(const char *url, const char *applicationId, const 
     return parseServer_returnData(http, status);
 }
 
+char * parseServer_deleteRequest(const char *url, const char *applicationId, int *status)
+{
+    HTTPClient http;
+    parseServer_addHeaderToClient(http, url, applicationId);
+
+    *status = http.sendRequest("DELETE");
+
+    return parseServer_returnData(http, status);
+}
+
 void parseServer_addHeaderToClient(HTTPClient &http, const char *url, const char *applicationId)
 {
     http.begin(url);
