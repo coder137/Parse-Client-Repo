@@ -4,12 +4,14 @@
 #include <cJSON.h>
 #include <inttypes.h>
 
+#include <configs.h>
+
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
-// ? Const char fields
+// ? Const char fields (Database Schema)
 const char MAC[] = "mac";
 const char DEVICE_NAME[] = "device_name";
 const char PIN1[] = "pin1";
@@ -22,6 +24,7 @@ const char TYPE[] = "type";
 const char VALUE[] = "value";
 
 // ? Functions
+char * createInitialGetRequestUrl(const char * mac_id);
 void createInitialDatabaseSchema(cJSON * createSchemaObject, const char * mac_id);
 
 // ? Helper functions

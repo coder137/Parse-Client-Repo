@@ -20,6 +20,7 @@
 
 // ! Own
 #include "password.h"
+// #include "config.h"
 
 // ? Pins
 uint8_t pin = D4;
@@ -45,15 +46,25 @@ void setup()
     Serial.printf("LocalIP: %s\n", WiFi.localIP().toString().c_str());
     Serial.printf("MacAddr: %s\n", WiFi.macAddress().c_str());
 
-    // ! Query
-    // TODO, Start making this a function from here onwards
+    // DONE, Do not move forward till connection to database isn't established
     int status;
-    char * payload = parseServer_getRequest("http://192.168.29.186:1337/parse/classes/Devices?where={\"mac\":\"A0:20:A6:1A:4B:5A\"}",
-                                            "myAppId", &status);
+    char * url = createInitialGetRequestUrl(WiFi.macAddress().c_str());
+    Serial.printf("url: %s\n", url);
 
-    Serial.printf("Status: %d\n", status);
-    Serial.printf("Payload: %s\n", payload);
+    char * payload = parseServer_getRequest(url, "myAppId", &status);
+    while(status != HTTP_CODE_OK)
+    {
+        Serial.printf("Status: %d\n", status);
 
+        free(payload);
+        payload = parseServer_getRequest(url, "myAppId", &status);
+        delay(1000);
+    }
+    free(url);
+
+    Serial.println(payload);
+
+    // TODO, Make this modular
     if(status == HTTP_CODE_OK)
     {
         // DONE, Parse the object
@@ -115,7 +126,7 @@ void setup()
         // TODO, Either Server Error, OR Database ERROR!
         Serial.println("Cannot Proceed further");
     }
-    free(payload);
+    free(payload); // ! IMP, Free top payload
 }
 
 void loop() 
