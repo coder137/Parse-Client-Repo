@@ -19,6 +19,35 @@ To register a nodemcuClient to a parseServer and subscribe to itself
 
 Check `lib/readme.txt` for entire dependencies
 
+### Parsing JSON
+- cJSON
+
+### Server Credentials and passwords
+- configs
+    - All Server Config details
+- `password.h` -> HIDDEN
+    - contains `ssid` and `password` as `const char`
+  
+### DatabaseSchemas
+- DatabaseObjectSchema
+    - Create the POST, GET, PUT, DELETE Requests with CJSON
+
+### Http
+- HttpConstants
+    - Various `Parse-Server` Header constants required
+- HttpRequests
+    - `Parse-Server` GET, POST, PUT and DELETE requests
+
+### LiveQuery (Websockets)
+- LiveQueryConstants
+    - `Parse-Server` constants used
+- LiveQueryObject
+    - `connect` and `subscribe` tokens created 
+    - LOW LEVEL
+- LiveQueryUser
+    - Built on `LiveQueryObject`
+    - `connectToServer` and `subscribeToServer`
+
 ## Database Schema
 
 ``` json
