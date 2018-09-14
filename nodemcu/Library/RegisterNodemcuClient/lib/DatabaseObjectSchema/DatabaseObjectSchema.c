@@ -1,6 +1,7 @@
 #include "DatabaseObjectSchema.h"
 
 #include <LiveQueryObject.h>
+#include <stdlib.h>
 
 char * createInitialGetRequestUrl(const char * mac_id)
 {
@@ -14,6 +15,7 @@ char * createInitialGetRequestUrl(const char * mac_id)
     
     // Serial.printf("Length: %" PRIu32 "\n", final_length);
     char * returnData = (char *) malloc(sizeof(char) * final_length);    
+    memset(returnData, 0, sizeof(char)*final_length); // ! This is important
 
     strcat(returnData, serverIpAddress);
     strcat(returnData, serverDevicesClass);

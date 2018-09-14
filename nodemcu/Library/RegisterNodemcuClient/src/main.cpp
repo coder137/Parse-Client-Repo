@@ -65,68 +65,71 @@ void setup()
     Serial.println(payload);
 
     // TODO, Make this modular
-    if(status == HTTP_CODE_OK)
+    // TODO, From here we start Validating the database
+    
+    // DONE, Parse the object
+    // DONE get the "results" object
+    cJSON *object = cJSON_Parse(payload);
+    cJSON *arrayObject = cJSON_GetObjectItemCaseSensitive(object, "results"); 
+
+    int size = cJSON_GetArraySize(arrayObject);
+    Serial.printf("Size: %d\n", size);
+
+    cJSON_Delete(object);    
+
+    if(size == 0)
     {
-        // DONE, Parse the object
-        // DONE get the "results" object
-        cJSON *object = cJSON_Parse(payload);
-        cJSON *arrayObject = cJSON_GetObjectItemCaseSensitive(object, "results"); 
-        int size = cJSON_GetArraySize(arrayObject);
-        Serial.printf("Size: %d\n", size);
+        // DONE, Create a class schema using cJSON
+        cJSON *databaseSchema = cJSON_CreateObject();
+        createInitialDatabaseSchema(databaseSchema, WiFi.macAddress().c_str());
+        Serial.printf("%s\n\n", cJSON_Print(databaseSchema));
 
-        if(size == 0)
+        // DONE, parseServer_postRequest
+        char post_url[] = "";
+        strcat(post_url, serverIpAddress);
+        strcat(post_url, serverDevicesClass);
+        Serial.printf("PostURL: %s\n", post_url);
+
+        int post_status;
+        char * postRequestPayload = parseServer_postRequest(post_url, "myAppId", cJSON_Print(databaseSchema), &post_status);
+
+        Serial.println(post_status);
+        Serial.println(postRequestPayload);
+
+        if (post_status != HTTP_CODE_CREATED)
         {
-            // DONE, Create a class schema using cJSON
-            cJSON *databaseSchema = cJSON_CreateObject();
-            createInitialDatabaseSchema(databaseSchema, WiFi.macAddress().c_str());
-            Serial.printf("%s\n\n", cJSON_Print(databaseSchema));
-
-            // DONE, parseServer_postRequest
-            int status;
-            char * postRequestPayload = parseServer_postRequest("http://192.168.29.186:1337/parse/classes/Devices",
-                                    "myAppId", cJSON_Print(databaseSchema), &status);
-
-            Serial.println(status);
-            Serial.println(postRequestPayload);
-
-            if (status != HTTP_CODE_CREATED)
-            {
-                // TODO, There is a problem here (DO NOT CONTINUE)
-                // ! This problem should mostly NOT occur (Due to the status == HTTP_CODE_OK check above)
-            }
-
-            // Free all the memory here
-            free(postRequestPayload);
-            cJSON_Delete(databaseSchema);
-            
-        }
-        else if (size == 1)
-        {
-            // TODO, Update the current values of the schema using cJSON
-            // TODO, parseServer_putRequest
-        }
-        else
-        {
-            // ! Error shouldn't happen
-            // TODO, Delete all the other objects related to this schema
-            // TODO, Create a class schema using cJSON
-            // TODO, parseServer_postRequest
-
-            // ! OR
-
-            // TODO, Find the most recent updated value (??)
-            // TODO, Delete all the other objects related to this schema
+            // TODO, There is a problem here (DO NOT CONTINUE)
+            // ! This problem should mostly NOT occur (Due to the status == HTTP_CODE_OK check above)
         }
 
-        // ! Free the Objects
-        cJSON_Delete(object);    
+        // Free all the memory here
+        Serial.println("Freeing POST Objects");
+        free(postRequestPayload);
+        cJSON_Delete(databaseSchema);
+        Serial.println("DONE Freeing POST Objects");
+    }
+    else if (size == 1)
+    {
+        // TODO, Update the current values of the schema using cJSON
+        // TODO, parseServer_putRequest
     }
     else
     {
-        // TODO, Either Server Error, OR Database ERROR!
-        Serial.println("Cannot Proceed further");
+        // ! Error shouldn't happen
+        // TODO, Delete all the other objects related to this schema
+        // TODO, Create a class schema using cJSON
+        // TODO, parseServer_postRequest
+
+        // ! OR
+
+        // TODO, Find the most recent updated value (??)
+        // TODO, Delete all the other objects related to this schema
     }
+
+    // ! Free the Objects
+    Serial.println("Freeing GLOBAL Get objects");
     free(payload); // ! IMP, Free top payload
+    Serial.println("Done Freeing GLOBAL Objects");
 }
 
 void loop() 
